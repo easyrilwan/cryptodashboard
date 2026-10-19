@@ -50,10 +50,49 @@ const API_URL =
 export default function App() {
   const [coins, setCoins] = useState<Coin[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    fetch(API_URL)
+    const controller = new AbortController();
+
+    const fetchCoins = async () => {
+      try {
+        const res = await fetch(API_URL, { signal: controller.signal });
+        if (!res.ok) throw new Error("Failed to fetch data");
+
+        const data: Coin[] = await res.json();
+        console.log(data);
+        setCoins(data);
+
+        // 1. Prevent updating coins after cancellation.
+        if (controller.signal.aborted) return;
+      } catch (err: unknown) {
+        // 2. Prevent cancellation from being treated as an error.
+        if (controller.signal.aborted) return;
+
+        setError(
+          err instanceof Error ? err.message : "An unexpected error occurred",
+        );
+      } finally {
+        // Don't update state after the request is aborted.
+        if (!controller.signal.aborted) {
+          setLoading(false);
+        }
+      }
+    };
+
+    fetchCoins();
+
+    // Cleanup: cancel the request on unmount.
+    return () => controller.abort();
+  }, []);
+
+  // Then Method to Fetch API
+  /*
+  useEffect(() => {
+    const controller = new AbortController();
+
+    fetch(API_URL, { signal: controller.signal })
       .then((res) => {
         if (!res.ok) throw new Error("Failed to fetch data");
         return res.json();
@@ -63,12 +102,25 @@ export default function App() {
         setCoins(data);
         setLoading(false);
       })
-      .catch((err) => {
-        console.log(error);
-        setError(err.message);
-        setLoading(false);
+      .catch((err: unknown) => {
+        // Ignore expected cancellation errors.
+        if (controller.signal.aborted) return;
+
+        setError(
+          err instanceof Error ? err.message : "An unexpected error occurred",
+        );
+      })
+      .finally(() => {
+        // Don't update state after the request is aborted.
+        if (!controller.signal.aborted) {
+          setLoading(false);
+        }
       });
+
+    // Cleanup: cancel the request on unmount.
+    return () => controller.abort();
   }, []);
+  */
 
   return (
     <div>
