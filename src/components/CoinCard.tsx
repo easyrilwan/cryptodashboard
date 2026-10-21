@@ -23,13 +23,13 @@ export default function CoinCard({ coin }: CoinCardProps) {
 
       <p
         className={
-          change == null ? "neutral" : change >= 0 ? "positive" : "negative"
+          change === null ? "neutral" : change >= 0 ? "positive" : "negative"
         }
       >
-        {change == null ? "N/A" : `${change.toFixed(2)}%`}
+        {change === null ? "N/A" : `${change.toFixed(2)}%`}
       </p>
 
-      <p>Market Cap: {coin.market_cap.toLocaleString()}</p>
+      <p>Market Cap: ${coin.market_cap.toLocaleString()}</p>
     </div>
   );
 }

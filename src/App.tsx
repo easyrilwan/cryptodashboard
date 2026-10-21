@@ -3,15 +3,11 @@ import { useEffect, useState } from "react";
 import type { Coin } from "./components/types/coinCardTypes";
 import CoinCard from "./components/CoinCard";
 
-interface CoinTypes {
-  coin: Coin;
-}
-
 const API_URL = import.meta.env.VITE_API_URL;
 // "&order=market_cap_desc&per_page=10&page=1&sparkline=false";
 
 export default function App() {
-  const [coins, setCoins] = useState<CoinTypes[]>([]);
+  const [coins, setCoins] = useState<Coin[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -27,7 +23,7 @@ export default function App() {
 
         if (!res.ok) throw new Error("Failed to fetch data");
 
-        const data: CoinTypes[] = await res.json();
+        const data: Coin[] = await res.json();
         console.log(data);
         setCoins(data);
 
