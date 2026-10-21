@@ -1,4 +1,4 @@
-import type { Coin } from "./coinCardTypes";
+import type { Coin } from "./types/coinCardTypes";
 
 interface CoinCardProps {
   coin: Coin;

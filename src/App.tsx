@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
+import type { Coin } from "./components/types/coinCardTypes";
 import CoinCard from "./components/CoinCard";
-import type { Coin } from "./components/coinCardTypes";
 
 interface CoinTypes {
   coin: Coin;
