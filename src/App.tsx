@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 
 import type { Coin } from "./components/types/coinCardTypes";
 import CoinCard from "./components/CoinCard";
+import LimitSelector from "./components/LimitSelector";
 
 const API_URL = import.meta.env.VITE_API_URL;
 // "&order=market_cap_desc&per_page=10&page=1&sparkline=false";
@@ -10,6 +11,7 @@ export default function App() {
   const [coins, setCoins] = useState<Coin[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const [limit, setLimit] = useState<number>(10);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -17,7 +19,7 @@ export default function App() {
     const fetchCoins = async () => {
       try {
         const res = await fetch(
-          `${API_URL}&order=market_cap_desc&per_page=10&page=1&sparkline=false`,
+          `${API_URL}&order=market_cap_desc&per_page=${limit}&page=1&sparkline=false`,
           { signal: controller.signal },
         );
 
@@ -48,7 +50,7 @@ export default function App() {
 
     // Cleanup: cancel the request on unmount.
     return () => controller.abort();
-  }, []);
+  }, [limit]);
 
   // Then Method to Fetch API
   /*
@@ -92,6 +94,8 @@ export default function App() {
       {loading && <p>Loading..</p>}
 
       {error && <p>{error}</p>}
+
+      <LimitSelector limit={limit} onLimitChange={setLimit} />
 
       {!loading && !error && (
         <main className="grid">
