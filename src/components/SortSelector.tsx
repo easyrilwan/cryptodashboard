@@ -9,7 +9,7 @@ export default function SortSelector({
 }: sortSelectorProps) {
   return (
     <div className="controls">
-      <label htmlFor="sort">Sort: </label>
+      <label htmlFor="sort">Sort By: </label>
       <select
         id="sort"
         value={sortBy}
