@@ -4,6 +4,7 @@ import type { Coin } from "./components/types/coinCardTypes";
 import CoinCard from "./components/CoinCard";
 import FilterInput from "./components/FilterInput";
 import LimitSelector from "./components/LimitSelector";
+import SortSelector from "./components/SortSelector";
 
 const API_URL = import.meta.env.VITE_API_URL;
 // "&order=market_cap_desc&per_page=10&page=1&sparkline=false";
@@ -14,6 +15,7 @@ export default function App() {
   const [error, setError] = useState<string | null>(null);
   const [limit, setLimit] = useState<number>(10);
   const [filter, setFilter] = useState<string>("");
+  const [sortBy, setSort] = useState<string>("market_cap_desc");
 
   useEffect(() => {
     const controller = new AbortController();
@@ -89,12 +91,42 @@ export default function App() {
   }, []);
   */
 
-  const filteredCoins = coins.filter((coin) => {
-    return (
-      coin.name.toLocaleLowerCase().includes(filter.toLocaleLowerCase()) ||
-      coin.symbol.toLocaleLowerCase().includes(filter.toLocaleLowerCase())
-    );
-  });
+  const filteredCoins = coins
+    .filter((coin) => {
+      return (
+        coin.name.toLocaleLowerCase().includes(filter.toLocaleLowerCase()) ||
+        coin.symbol.toLocaleLowerCase().includes(filter.toLocaleLowerCase())
+      );
+    })
+    .slice()
+    .sort((a, b) => {
+      switch (sortBy) {
+        case "market_cap_desc":
+          return b.market_cap - a.market_cap;
+        case "market_cap_asc":
+          return a.market_cap - b.market_cap;
+
+        case "price_desc":
+          return b.current_price - a.current_price;
+        case "price_asc":
+          return a.current_price - b.current_price;
+
+        case "change_desc":
+          return (
+            (b.price_change_percentage_24h ?? 0) -
+            (a.price_change_percentage_24h ?? 0)
+          );
+
+        case "change_asc":
+          return (
+            (a.price_change_percentage_24h ?? 0) -
+            (b.price_change_percentage_24h ?? 0)
+          );
+
+        default:
+          return 0;
+      }
+    });
 
   return (
     <div>
@@ -104,6 +136,8 @@ export default function App() {
         <FilterInput filter={filter} onFilterChange={setFilter} />
 
         <LimitSelector limit={limit} onLimitChange={setLimit} />
+
+        <SortSelector sortBy={sortBy} onSortChange={setSort} />
       </div>
 
       {loading && <p>Loading..</p>}
