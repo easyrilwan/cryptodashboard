@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 
 import type { Coin } from "./components/types/coinCardTypes";
 import CoinCard from "./components/CoinCard";
+import FilterInput from "./components/FilterInput";
 import LimitSelector from "./components/LimitSelector";
 
 const API_URL = import.meta.env.VITE_API_URL;
@@ -12,6 +13,7 @@ export default function App() {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [limit, setLimit] = useState<number>(10);
+  const [filter, setFilter] = useState<string>("");
 
   useEffect(() => {
     const controller = new AbortController();
@@ -87,21 +89,33 @@ export default function App() {
   }, []);
   */
 
+  const filteredCoins = coins.filter((coin) => {
+    return (
+      coin.name.toLocaleLowerCase().includes(filter.toLocaleLowerCase()) ||
+      coin.symbol.toLocaleLowerCase().includes(filter.toLocaleLowerCase())
+    );
+  });
+
   return (
     <div>
       <h1>🪙 Crypto Dashboard 🏦</h1>
 
+      <div className="top-controls">
+        <FilterInput filter={filter} onFilterChange={setFilter} />
+
+        <LimitSelector limit={limit} onLimitChange={setLimit} />
+      </div>
+
       {loading && <p>Loading..</p>}
-
       {error && <p>{error}</p>}
-
-      <LimitSelector limit={limit} onLimitChange={setLimit} />
 
       {!loading && !error && (
         <main className="grid">
-          {coins.map((coin) => (
-            <CoinCard key={coin.id} coin={coin} />
-          ))}
+          {filteredCoins.length > 0 ? (
+            filteredCoins.map((coin) => <CoinCard key={coin.id} coin={coin} />)
+          ) : (
+            <p>There are no coin name matches found</p>
+          )}
         </main>
       )}
     </div>
