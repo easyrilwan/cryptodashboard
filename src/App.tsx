@@ -1,13 +1,9 @@
 import { useEffect, useState } from "react";
 
 import type { Coin } from "./components/types/coinCardTypes";
-import CoinCard from "./components/CoinCard";
-import FilterInput from "./components/FilterInput";
-import LimitSelector from "./components/LimitSelector";
-import SortSelector from "./components/SortSelector";
+import HomePage from "./pages/HomePage";
 
 const API_URL = import.meta.env.VITE_API_URL;
-// "&order=market_cap_desc&per_page=10&page=1&sparkline=false";
 
 export default function App() {
   const [coins, setCoins] = useState<Coin[]>([]);
@@ -15,7 +11,7 @@ export default function App() {
   const [error, setError] = useState<string | null>(null);
   const [limit, setLimit] = useState<number>(10);
   const [filter, setFilter] = useState<string>("");
-  const [sortBy, setSort] = useState<string>("market_cap_desc");
+  const [sortBy, setSortBy] = useState<string>("market_cap_desc");
 
   useEffect(() => {
     const controller = new AbortController();
@@ -30,11 +26,12 @@ export default function App() {
         if (!res.ok) throw new Error("Failed to fetch data");
 
         const data: Coin[] = await res.json();
-        console.log(data);
-        setCoins(data);
 
         // 1. Prevent updating coins after cancellation.
         if (controller.signal.aborted) return;
+
+        console.log(data);
+        setCoins(data);
       } catch (err: unknown) {
         // 2. Prevent cancellation from being treated as an error.
         if (controller.signal.aborted) return;
@@ -56,102 +53,17 @@ export default function App() {
     return () => controller.abort();
   }, [limit]);
 
-  // Then Method to Fetch API
-  /*
-  useEffect(() => {
-    const controller = new AbortController();
-
-    fetch(API_URL, { signal: controller.signal })
-      .then((res) => {
-        if (!res.ok) throw new Error("Failed to fetch data");
-        return res.json();
-      })
-      .then((data: Coin[]) => {
-        console.log(data);
-        setCoins(data);
-        setLoading(false);
-      })
-      .catch((err: unknown) => {
-        // Ignore expected cancellation errors.
-        if (controller.signal.aborted) return;
-
-        setError(
-          err instanceof Error ? err.message : "An unexpected error occurred",
-        );
-      })
-      .finally(() => {
-        // Don't update state after the request is aborted.
-        if (!controller.signal.aborted) {
-          setLoading(false);
-        }
-      });
-
-    // Cleanup: cancel the request on unmount.
-    return () => controller.abort();
-  }, []);
-  */
-
-  const filteredCoins = coins
-    .filter((coin) => {
-      return (
-        coin.name.toLocaleLowerCase().includes(filter.toLocaleLowerCase()) ||
-        coin.symbol.toLocaleLowerCase().includes(filter.toLocaleLowerCase())
-      );
-    })
-    .slice()
-    .sort((a, b) => {
-      switch (sortBy) {
-        case "market_cap_desc":
-          return b.market_cap - a.market_cap;
-        case "market_cap_asc":
-          return a.market_cap - b.market_cap;
-
-        case "price_desc":
-          return b.current_price - a.current_price;
-        case "price_asc":
-          return a.current_price - b.current_price;
-
-        case "change_desc":
-          return (
-            (b.price_change_percentage_24h ?? 0) -
-            (a.price_change_percentage_24h ?? 0)
-          );
-
-        case "change_asc":
-          return (
-            (a.price_change_percentage_24h ?? 0) -
-            (b.price_change_percentage_24h ?? 0)
-          );
-
-        default:
-          return 0;
-      }
-    });
-
   return (
-    <div>
-      <h1>🪙 Crypto Dashboard 🏦</h1>
-
-      <div className="top-controls">
-        <FilterInput filter={filter} onFilterChange={setFilter} />
-
-        <LimitSelector limit={limit} onLimitChange={setLimit} />
-
-        <SortSelector sortBy={sortBy} onSortChange={setSort} />
-      </div>
-
-      {loading && <p>Loading..</p>}
-      {error && <p>{error}</p>}
-
-      {!loading && !error && (
-        <main className="grid">
-          {filteredCoins.length > 0 ? (
-            filteredCoins.map((coin) => <CoinCard key={coin.id} coin={coin} />)
-          ) : (
-            <p>There are no coin name matches found</p>
-          )}
-        </main>
-      )}
-    </div>
+    <HomePage
+      coins={coins}
+      filter={filter}
+      setFilter={setFilter}
+      limit={limit}
+      setLimit={setLimit}
+      sortBy={sortBy}
+      setSortBy={setSortBy}
+      loading={loading}
+      error={error}
+    />
   );
 }
