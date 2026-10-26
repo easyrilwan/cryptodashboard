@@ -29,7 +29,7 @@ export default function CoinCard({ coin }: CoinCardProps) {
         {change === null ? "N/A" : `${change.toFixed(2)}%`}
       </p>
 
-      <p>Market Cap: ${coin.market_cap.toLocaleString()}</p>
+      <p>Market Cap: {coin.market_cap.toLocaleString()}</p>
     </div>
   );
 }
