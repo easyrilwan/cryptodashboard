@@ -18,7 +18,7 @@ export default function useCoins(limit: number): UseCoinsResult {
   useEffect(() => {
     const controller = new AbortController();
 
-    async function fetchCoins() {
+    const fetchCoins = async () => {
       setLoading(true);
       setError(null);
 
@@ -49,7 +49,7 @@ export default function useCoins(limit: number): UseCoinsResult {
         // Don't update state after the request is aborted.
         if (!controller.signal.aborted) setLoading(false);
       }
-    }
+    };
 
     fetchCoins();
 
