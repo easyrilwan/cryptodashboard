@@ -4,6 +4,7 @@ import CoinCard from "../components/CoinCard";
 import FilterInput from "../components/FilterInput";
 import LimitSelector from "../components/LimitSelector";
 import SortSelector from "../components/SortSelector";
+import Spinner from "../components/Spinner";
 import { useCoins } from "../hooks/useCoins";
 
 export default function HomePage() {
@@ -61,7 +62,7 @@ export default function HomePage() {
         <SortSelector sortBy={sortBy} onSortChange={setSortBy} />
       </div>
 
-      {loading && <p>Loading...</p>}
+      {loading && <Spinner color="white" />}
 
       {error && <p>{error}</p>}
 

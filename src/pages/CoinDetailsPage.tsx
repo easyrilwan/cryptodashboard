@@ -1,5 +1,8 @@
 import { Link, useParams } from "react-router";
+
+import Spinner from "../components/Spinner";
 import { useCoinDetails } from "../hooks/useCoinDetails";
+
 export default function CoinDetailsPage() {
   const { id } = useParams();
   console.log(id);
@@ -14,9 +17,9 @@ export default function CoinDetailsPage() {
         {coin ? `${coin.name} (${coin.symbol.toUpperCase()})` : "Coin Details"}
       </h1>
 
-      {loading && <p>Loading...</p>}
+      {loading && <Spinner />}
 
-      {error && <p>{error}</p>}
+      {error && <div className="error">{error}</div>}
 
       {!loading && !error && (
         <>
