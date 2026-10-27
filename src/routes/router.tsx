@@ -2,7 +2,9 @@ import { createBrowserRouter } from "react-router";
 
 import AppLayout from "../layout/AppLayout";
 import AboutPage from "../pages/AboutPage";
+import CoinDetailsPage from "../pages/CoinDetailsPage";
 import ErrorPage from "../pages/ErrorPage";
+import NotFound from "../pages/NotFound";
 import App from "../App";
 
 const router = createBrowserRouter([
@@ -13,7 +15,8 @@ const router = createBrowserRouter([
     children: [
       { index: true, Component: App },
       { path: "about", Component: AboutPage },
-      { path: "*", element: <h1>Page Not Found</h1> },
+      { path: "coin/:id", Component: CoinDetailsPage },
+      { path: "*", Component: NotFound },
     ],
   },
 ]);

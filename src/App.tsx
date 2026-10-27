@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import type { Coin } from "./components/types/coinCardTypes";
 import HomePage from "./pages/HomePage";
 
-const API_URL = import.meta.env.VITE_API_URL;
+const API_URL = import.meta.env.VITE_COINS_API_URL;
 
 export default function App() {
   const [coins, setCoins] = useState<Coin[]>([]);

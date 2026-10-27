@@ -1,0 +1,244 @@
+{
+  "coindata": [
+    {
+      "id": "bitcoin",
+      "symbol": "btc",
+      "name": "Bitcoin",
+      "web_slug": "bitcoin",
+      "asset_platform_id": null,
+      "platforms": {
+        "": ""
+      },
+      "detail_platforms": {
+        "": {
+          "decimal_place": null,
+          "contract_address": ""
+        }
+      },
+      "block_time_in_minutes": 10,
+      "hashing_algorithm": "SHA-256",
+      "categories": ["Cryptocurrency", "Layer 1 (L1)"],
+      "preview_listing": false,
+      "public_notice": null,
+      "additional_notices": [],
+      "has_supply_breakdown": false,
+      "description": {
+        "en": "Bitcoin is the first successful internet money based on peer-to-peer technology..."
+      },
+      "links": {
+        "homepage": ["http://www.bitcoin.org", "", ""],
+        "whitepaper": "https://bitcoin.org/bitcoin.pdf",
+        "blockchain_site": [
+          "https://mempool.space/",
+          "https://blockchair.com/bitcoin/"
+        ],
+        "official_forum_url": ["https://bitcointalk.org/"],
+        "chat_url": [""],
+        "announcement_url": ["", ""],
+        "snapshot_url": null,
+        "twitter_screen_name": "bitcoin",
+        "facebook_username": "bitcoins",
+        "bitcointalk_thread_identifier": null,
+        "telegram_channel_identifier": "",
+        "subreddit_url": "https://www.reddit.com/r/Bitcoin/",
+        "repos_url": {
+          "github": [
+            "https://github.com/bitcoin/bitcoin",
+            "https://github.com/bitcoin/bips"
+          ],
+          "bitbucket": []
+        }
+      },
+      "image": {
+        "thumb": "https://assets.coingecko.com/coins/images/1/thumb/bitcoin.png?1696501400",
+        "small": "https://assets.coingecko.com/coins/images/1/small/bitcoin.png?1696501400",
+        "large": "https://assets.coingecko.com/coins/images/1/large/bitcoin.png?1696501400"
+      },
+      "country_origin": "",
+      "genesis_date": "2009-01-03",
+      "sentiment_votes_up_percentage": 84.07,
+      "sentiment_votes_down_percentage": 15.93,
+      "watchlist_portfolio_users": 1541900,
+      "market_cap_rank": 1,
+      "market_cap_rank_with_rehypothecated": 1,
+      "status_updates": [],
+      "last_updated": "2024-04-07T15:24:51.021Z",
+      "market_data": {
+        "current_price": {
+          "btc": 1,
+          "eur": 64375,
+          "usd": 69840
+        },
+        "total_value_locked": null,
+        "mcap_to_tvl_ratio": null,
+        "fdv_to_tvl_ratio": null,
+        "roi": null,
+        "ath": {
+          "btc": 1.003301,
+          "eur": 67405,
+          "usd": 73738
+        },
+        "ath_change_percentage": {
+          "btc": -0.32896,
+          "eur": -4.54383,
+          "usd": -5.33399
+        },
+        "ath_date": {
+          "btc": "2024-03-02T16:05:19.446Z",
+          "eur": "2024-03-14T07:10:36.635Z",
+          "usd": "2024-03-14T07:10:36.635Z"
+        },
+        "atl": {
+          "btc": 0.99895134,
+          "eur": 51.3,
+          "usd": 67.81
+        },
+        "atl_change_percentage": {
+          "btc": 0.10408,
+          "eur": 125385.41242,
+          "usd": 102882.36498
+        },
+        "atl_date": {
+          "btc": "2019-10-21T00:00:00.000Z",
+          "eur": "2013-07-05T00:00:00.000Z",
+          "usd": "2013-07-06T00:00:00.000Z"
+        },
+        "market_cap": {
+          "btc": 19675377,
+          "eur": 1265825267281,
+          "usd": 1373296629498
+        },
+        "fully_diluted_valuation": {
+          "btc": 21000000,
+          "eur": 1351831155,
+          "usd": 1466577759
+        },
+        "market_cap_fdv_ratio": 1,
+        "market_cap_rank": 1,
+        "outstanding_token_value_usd": null,
+        "market_cap_rank_with_rehypothecated": 1,
+        "total_volume": {
+          "btc": 270165,
+          "eur": 17368113665,
+          "usd": 18867210007
+        },
+        "high_24h": {
+          "btc": 1,
+          "eur": 64343,
+          "usd": 69805
+        },
+        "low_24h": {
+          "btc": 1,
+          "eur": 62695,
+          "usd": 67985
+        },
+        "price_change_24h": 1619,
+        "price_change_percentage_24h": 2.37311,
+        "price_change_percentage_7d": -0.89706,
+        "price_change_percentage_14d": 6.36178,
+        "price_change_percentage_30d": 1.81171,
+        "price_change_percentage_60d": 62.54292,
+        "price_change_percentage_200d": 157.51875,
+        "price_change_percentage_1y": 149.76989,
+        "market_cap_change_24h": 31172487848,
+        "market_cap_change_percentage_24h": 2.32219,
+        "price_change_24h_in_currency": {
+          "btc": 0,
+          "eur": 1461.64,
+          "usd": 1618.95
+        },
+        "price_change_percentage_1h_in_currency": {
+          "btc": 0,
+          "eur": 0.79523,
+          "usd": 0.79523
+        },
+        "price_change_percentage_24h_in_currency": {
+          "btc": 0,
+          "eur": 2.32219,
+          "usd": 2.37311
+        },
+        "price_change_percentage_7d_in_currency": {
+          "btc": 0,
+          "eur": -1.01955,
+          "usd": -0.89706
+        },
+        "price_change_percentage_14d_in_currency": {
+          "btc": 0,
+          "eur": 5.84662,
+          "usd": 6.36178
+        },
+        "price_change_percentage_30d_in_currency": {
+          "btc": 0,
+          "eur": 2.28048,
+          "usd": 1.81171
+        },
+        "price_change_percentage_60d_in_currency": {
+          "btc": 0,
+          "eur": 60.98834,
+          "usd": 62.54292
+        },
+        "price_change_percentage_200d_in_currency": {
+          "btc": 0,
+          "eur": 148.68948,
+          "usd": 157.51875
+        },
+        "price_change_percentage_1y_in_currency": {
+          "btc": 0,
+          "eur": 138.20277,
+          "usd": 149.76989
+        },
+        "market_cap_change_24h_in_currency": {
+          "btc": -49432,
+          "eur": 28668703539,
+          "usd": 31172487848
+        },
+        "market_cap_change_percentage_24h_in_currency": {
+          "btc": -0.25084,
+          "eur": 2.31801,
+          "usd": 2.32219
+        },
+        "total_supply": 21000000,
+        "max_supply": 21000000,
+        "max_supply_infinite": false,
+        "circulating_supply": 19675377,
+        "outstanding_supply": null,
+        "last_updated": "2024-04-07T15:24:51.021Z"
+      },
+      "tickers": [
+        {
+          "base": "BTC",
+          "target": "USDT",
+          "market": {
+            "name": "Binance",
+            "identifier": "binance",
+            "has_trading_incentive": false
+          },
+          "last": 69816,
+          "volume": 19988.82111,
+          "converted_last": {
+            "btc": 0.99999255,
+            "eth": 20.441016,
+            "usd": 69835
+          },
+          "converted_volume": {
+            "btc": 19783,
+            "eth": 404380,
+            "usd": 1381537193
+          },
+          "trust_score": null,
+          "bid_ask_spread_percentage": 0.010014,
+          "timestamp": "2024-04-07T15:23:02+00:00",
+          "last_traded_at": "2024-04-07T15:23:02+00:00",
+          "last_fetch_at": "2024-04-07T15:24:00+00:00",
+          "is_anomaly": false,
+          "is_stale": false,
+          "trade_url": "https://www.binance.com/en/trade/BTC_USDT?ref=37754157",
+          "token_info_url": null,
+          "coin_id": "bitcoin",
+          "target_coin_id": "tether",
+          "coin_mcap_usd": 230926944910.5146
+        }
+      ]
+    }
+  ]
+}
