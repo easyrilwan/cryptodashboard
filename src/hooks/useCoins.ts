@@ -10,7 +10,7 @@ interface UseCoinsResult {
   error: string | null;
 }
 
-export default function useCoins(limit: number): UseCoinsResult {
+export function useCoins(limit: number): UseCoinsResult {
   const [coins, setCoins] = useState<Coin[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -28,6 +28,10 @@ export default function useCoins(limit: number): UseCoinsResult {
           { signal: controller.signal },
         );
 
+        if (res.status === 429) {
+          throw new Error("Too many API requests. Please wait and try again.");
+        }
+
         if (!res.ok) {
           throw new Error("Failed to fetch coins");
         }
@@ -36,6 +40,8 @@ export default function useCoins(limit: number): UseCoinsResult {
 
         // 1. Prevent updating coins after cancellation.
         if (controller.signal.aborted) return;
+
+        console.log(data);
 
         setCoins(data);
       } catch (err: unknown) {

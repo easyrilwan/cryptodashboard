@@ -1,56 +1,10 @@
-import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router";
-
-import type { CoinDetails } from "../components/types/CoinDetailsTypes";
-
+import { useCoinDetails } from "../hooks/useCoinDetails";
 export default function CoinDetailsPage() {
   const { id } = useParams();
   console.log(id);
 
-  const [coin, setCoin] = useState<CoinDetails | null>(null);
-  const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
-
-  const API_URL = import.meta.env.VITE_COIN_API_URL;
-
-  useEffect(() => {
-    const controller = new AbortController();
-
-    const fetchCoin = async () => {
-      try {
-        const res = await fetch(`${API_URL}/${id}`, {
-          signal: controller.signal,
-        });
-
-        if (!res.ok) throw new Error("Failed to fetch data");
-
-        const data: CoinDetails = await res.json();
-
-        // 1. Prevent updating coin after cancellation.
-        if (controller.signal.aborted) return;
-
-        console.log(data);
-        setCoin(data);
-      } catch (err: unknown) {
-        // 2. Prevent cancellation from being treated as an error.
-        if (controller.signal.aborted) return;
-
-        setError(
-          err instanceof Error ? err.message : "An unexpected error occurred",
-        );
-      } finally {
-        // Don't update state after the request is aborted.
-        if (!controller.signal.aborted) {
-          setLoading(false);
-        }
-      }
-    };
-
-    fetchCoin();
-
-    // Cleanup: cancel the request on unmount.
-    return () => controller.abort();
-  }, [id]);
+  const { coin, loading, error } = useCoinDetails(id);
 
   return (
     <div className="coin-details-container">
@@ -60,7 +14,7 @@ export default function CoinDetailsPage() {
         {coin ? `${coin.name} (${coin.symbol.toUpperCase()})` : "Coin Details"}
       </h1>
 
-      {loading && <p>Loading..</p>}
+      {loading && <p>Loading...</p>}
 
       {error && <p>{error}</p>}
 
@@ -164,7 +118,7 @@ export default function CoinDetailsPage() {
         </>
       )}
 
-      {!loading && !error && !coin && <p>NO Data Found!</p>}
+      {!loading && !error && !coin && <p>No Data Found!</p>}
     </div>
   );
 }

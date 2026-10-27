@@ -1,47 +1,59 @@
 import { useEffect, useState } from "react";
 
-import type { Coin } from "../components/types/coinCardTypes";
+import type { CoinDetails } from "../components/types/CoinDetailsTypes";
 
 const API_URL = import.meta.env.VITE_COIN_API_URL;
 
 interface UseCoinsResult {
-  coins: Coin[];
+  coin: CoinDetails | null;
   loading: boolean;
   error: string | null;
 }
 
-export default function useCoins(limit: number): UseCoinsResult {
-  const [coins, setCoins] = useState<Coin[]>([]);
+export function useCoinDetails(id: string | undefined): UseCoinsResult {
+  const [coin, setCoin] = useState<CoinDetails | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    if (!id) {
+      setCoin(null);
+      setError("Coin ID is missing");
+      setLoading(false);
+      return;
+    }
+
     const controller = new AbortController();
 
-    const fetchCoins = async () => {
+    const fetchCoin = async () => {
       setLoading(true);
       setError(null);
 
       try {
-        const res = await fetch(
-          `${API_URL}&order=market_cap_desc&per_page=${limit}&page=1&sparkline=false`,
-          { signal: controller.signal },
-        );
+        const res = await fetch(`${API_URL}/${id}`, {
+          signal: controller.signal,
+        });
+
+        if (res.status === 429) {
+          throw new Error("Too many API requests. Please wait and try again.");
+        }
 
         if (!res.ok) {
           throw new Error("Failed to fetch coins");
         }
 
-        const data: Coin[] = await res.json();
+        const data: CoinDetails = await res.json();
+        console.log(data);
 
         // 1. Prevent updating coins after cancellation.
         if (controller.signal.aborted) return;
 
-        setCoins(data);
+        setCoin(data);
       } catch (err: unknown) {
         // 2. Prevent cancellation from being treated as an error.
         if (controller.signal.aborted) return;
 
+        setCoin(null);
         setError(
           err instanceof Error ? err.message : "An unexpected error occurred",
         );
@@ -51,11 +63,11 @@ export default function useCoins(limit: number): UseCoinsResult {
       }
     };
 
-    fetchCoins();
+    fetchCoin();
 
     // Cleanup: cancel the request on unmount.
     return () => controller.abort();
-  }, [limit]);
+  }, [id]);
 
-  return { coins, loading, error };
+  return { coin, loading, error };
 }

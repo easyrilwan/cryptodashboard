@@ -4,8 +4,8 @@ import AppLayout from "../layout/AppLayout";
 import AboutPage from "../pages/AboutPage";
 import CoinDetailsPage from "../pages/CoinDetailsPage";
 import ErrorPage from "../pages/ErrorPage";
+import HomePage from "../pages/HomePage";
 import NotFound from "../pages/NotFound";
-import App from "../App";
 
 const router = createBrowserRouter([
   {
@@ -13,7 +13,7 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     Component: AppLayout,
     children: [
-      { index: true, Component: App },
+      { index: true, Component: HomePage },
       { path: "about", Component: AboutPage },
       { path: "coin/:id", Component: CoinDetailsPage },
       { path: "*", Component: NotFound },

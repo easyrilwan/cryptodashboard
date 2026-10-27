@@ -1,32 +1,18 @@
-import type { Coin } from "../components/types/coinCardTypes";
+import { useState } from "react";
+
 import CoinCard from "../components/CoinCard";
 import FilterInput from "../components/FilterInput";
 import LimitSelector from "../components/LimitSelector";
 import SortSelector from "../components/SortSelector";
+import { useCoins } from "../hooks/useCoins";
 
-interface HomePageProps {
-  coins: Coin[];
-  filter: string;
-  setFilter: (value: string) => void;
-  limit: number;
-  setLimit: (value: number) => void;
-  sortBy: string;
-  setSortBy: (value: string) => void;
-  loading: boolean;
-  error: string | null;
-}
+export default function HomePage() {
+  const [filter, setFilter] = useState("");
+  const [limit, setLimit] = useState(10);
+  const [sortBy, setSortBy] = useState("market_cap_desc");
 
-export default function HomePage({
-  coins,
-  filter,
-  setFilter,
-  limit,
-  setLimit,
-  sortBy,
-  setSortBy,
-  loading,
-  error,
-}: HomePageProps) {
+  const { coins, loading, error } = useCoins(limit);
+
   const filteredCoins = coins
     .filter((coin) => {
       return (
@@ -75,7 +61,8 @@ export default function HomePage({
         <SortSelector sortBy={sortBy} onSortChange={setSortBy} />
       </div>
 
-      {loading && <p>Loading..</p>}
+      {loading && <p>Loading...</p>}
+
       {error && <p>{error}</p>}
 
       {!loading && !error && (
