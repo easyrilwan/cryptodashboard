@@ -28,7 +28,7 @@ import { useEffect, useState } from "react";
 import type { CoinMarketChart } from "./types/CoinChartData";
 
 interface CoinChartProps {
-  coinId: string;
+  coinId: string | undefined;
 }
 
 type PricePoint = {

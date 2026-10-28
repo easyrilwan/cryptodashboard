@@ -86,7 +86,7 @@ export default function CoinDetailsPage() {
             </h4>
           </div>
 
-          <CoinChart coinId={coin!.id} />
+          <CoinChart coinId={coin?.id} />
 
           <div className="coin-details-links">
             {coin?.links.homepage[0] && (
