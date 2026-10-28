@@ -6,7 +6,7 @@ const override: CSSProperties = {
   margin: "0 auto 50px auto",
 };
 
-export default function Spinner({ color = "#22d3ee", size = "150" }) {
+export default function Spinner({ color = "#22d3ee", size = "150px" }) {
   return (
     <div>
       <MoonLoader

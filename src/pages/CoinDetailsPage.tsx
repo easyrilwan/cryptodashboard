@@ -1,5 +1,6 @@
 import { Link, useParams } from "react-router";
 
+import CoinChart from "../components/CoinChart";
 import Spinner from "../components/Spinner";
 import { useCoinDetails } from "../hooks/useCoinDetails";
 
@@ -84,6 +85,8 @@ export default function CoinDetailsPage() {
                 : ""}
             </h4>
           </div>
+
+          <CoinChart coinId={coin!.id} />
 
           <div className="coin-details-links">
             {coin?.links.homepage[0] && (
