@@ -65,14 +65,14 @@ export default function CoinChart({ coinId }: CoinChartProps) {
         }
 
         const data: CoinMarketChart = await res.json();
-        console.log(data);
+        // console.log(data);
 
         const prices = data.prices.map((price) => ({
           x: price[0],
           y: price[1],
         }));
 
-        console.log(prices);
+        // console.log(prices);
 
         setChartData({
           datasets: [

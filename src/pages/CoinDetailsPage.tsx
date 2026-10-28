@@ -6,7 +6,7 @@ import { useCoinDetails } from "../hooks/useCoinDetails";
 
 export default function CoinDetailsPage() {
   const { id } = useParams();
-  console.log(id);
+  // console.log(id);
 
   const { coin, loading, error } = useCoinDetails(id);
 

@@ -41,7 +41,7 @@ export function useCoins(limit: number): UseCoinsResult {
         // 1. Prevent updating coins after cancellation.
         if (controller.signal.aborted) return;
 
-        console.log(data);
+        // console.log(data);
 
         setCoins(data);
       } catch (err: unknown) {

@@ -43,7 +43,7 @@ export function useCoinDetails(id: string | undefined): UseCoinsResult {
         }
 
         const data: CoinDetails = await res.json();
-        console.log(data);
+        // console.log(data);
 
         // 1. Prevent updating coins after cancellation.
         if (controller.signal.aborted) return;
