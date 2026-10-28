@@ -8,8 +8,8 @@ import Spinner from "../components/Spinner";
 import { useCoins } from "../hooks/useCoins";
 
 export default function HomePage() {
-  const [filter, setFilter] = useState("");
-  const [limit, setLimit] = useState(10);
+  const [filter, setFilter] = useState<string>("");
+  const [limit, setLimit] = useState<number>(10);
   const [sortBy, setSortBy] = useState("market_cap_desc");
 
   const { coins, loading, error } = useCoins(limit);

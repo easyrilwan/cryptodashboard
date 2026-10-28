@@ -7,7 +7,7 @@ export default function AppLayout() {
     <>
       <Header />
 
-      <Outlet   />
+      <Outlet />
     </>
   );
 }
