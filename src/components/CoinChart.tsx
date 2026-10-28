@@ -10,7 +10,20 @@ import {
   Tooltip,
   type ChartData,
 } from "chart.js";
+import { useEffect, useState } from "react";
 import { Line } from "react-chartjs-2";
+
+import "chartjs-adapter-date-fns";
+import type { CoinMarketChart } from "./types/CoinChartData";
+
+interface CoinChartProps {
+  coinId: string | undefined;
+}
+
+type PricePoint = {
+  x: number;
+  y: number;
+};
 
 ChartJS.register([
   CategoryScale,
@@ -22,19 +35,6 @@ ChartJS.register([
   TimeScale,
   Filler,
 ]);
-
-import "chartjs-adapter-date-fns";
-import { useEffect, useState } from "react";
-import type { CoinMarketChart } from "./types/CoinChartData";
-
-interface CoinChartProps {
-  coinId: string | undefined;
-}
-
-type PricePoint = {
-  x: number;
-  y: number;
-};
 
 const API_URL = import.meta.env.VITE_COIN_API_URL;
 
