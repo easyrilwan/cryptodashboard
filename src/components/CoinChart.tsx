@@ -49,8 +49,17 @@ export default function CoinChart({ coinId }: CoinChartProps) {
   useEffect(() => {
     const controller = new AbortController();
 
+    if (!coinId) {
+      setChartData(null);
+      setError("Coin ID is missing");
+      setLoading(false);
+
+      return;
+    }
+
     const fetchPrices = async () => {
       setLoading(true);
+      setError(null);
 
       try {
         const res = await fetch(
@@ -66,6 +75,9 @@ export default function CoinChart({ coinId }: CoinChartProps) {
 
         const data: CoinMarketChart = await res.json();
         // console.log(data);
+
+        // 1. Prevent updating coins after cancellation.
+        if (controller.signal.aborted) return;
 
         const prices = data.prices.map((price) => ({
           x: price[0],
@@ -87,9 +99,6 @@ export default function CoinChart({ coinId }: CoinChartProps) {
             },
           ],
         });
-
-        // 1. Prevent updating coins after cancellation.
-        if (controller.signal.aborted) return;
       } catch (err: unknown) {
         // 2. Prevent cancellation from being treated as an error.
         if (controller.signal.aborted) return;

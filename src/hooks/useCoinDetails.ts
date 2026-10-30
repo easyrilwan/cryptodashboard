@@ -20,6 +20,7 @@ export function useCoinDetails(id: string | undefined): UseCoinsResult {
       setCoin(null);
       setError("Coin ID is missing");
       setLoading(false);
+
       return;
     }
 
@@ -39,7 +40,7 @@ export function useCoinDetails(id: string | undefined): UseCoinsResult {
         }
 
         if (!res.ok) {
-          throw new Error("Failed to fetch coins");
+          throw new Error("Failed to fetch coin details");
         }
 
         const data: CoinDetails = await res.json();
