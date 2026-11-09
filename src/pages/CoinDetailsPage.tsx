@@ -27,6 +27,7 @@ export default function CoinDetailsPage() {
           <img
             src={coin?.image.large}
             alt={coin?.name}
+            loading="lazy"
             className="coin-details-image"
           />
 

@@ -13,7 +13,12 @@ export default function CoinCard({ coin }: CoinCardProps) {
     <Link to={`/coin/${coin.id}`}>
       <div className="coin-card">
         <div className="coin-header">
-          <img src={coin.image} alt={coin.name} className="coin-image" />
+          <img
+            src={coin.image}
+            alt={coin.name}
+            loading="lazy"
+            className="coin-image"
+          />
 
           <div>
             <h2>{coin.name}</h2>

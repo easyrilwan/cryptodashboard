@@ -39,7 +39,6 @@ export default function HomePage() {
             (b.price_change_percentage_24h ?? 0) -
             (a.price_change_percentage_24h ?? 0)
           );
-
         case "change_asc":
           return (
             (a.price_change_percentage_24h ?? 0) -
@@ -50,6 +49,7 @@ export default function HomePage() {
           return 0;
       }
     });
+
   return (
     <div>
       <h1>🪙 Crypto Dashboard 🏦</h1>
