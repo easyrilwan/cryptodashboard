@@ -55,6 +55,7 @@ export function useCoinDetails(id: string | undefined): UseCoinsResult {
         if (controller.signal.aborted) return;
 
         setCoin(null);
+
         setError(
           err instanceof Error ? err.message : "An unexpected error occurred",
         );

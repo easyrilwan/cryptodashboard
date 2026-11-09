@@ -37,11 +37,10 @@ export function useCoins(limit: number): UseCoinsResult {
         }
 
         const data: Coin[] = await res.json();
+        // console.log(data);
 
         // 1. Prevent updating coins after cancellation.
         if (controller.signal.aborted) return;
-
-        // console.log(data);
 
         setCoins(data);
       } catch (err: unknown) {
